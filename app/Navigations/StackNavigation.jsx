@@ -52,14 +52,14 @@
 
 
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from '../Screens/Auth/SplashScreen';
 import HomeScreen from '../Screens/Home/HomeScreen';
 import SignupScreen from '../Screens/Auth/Signup';
 import LoginScreen from '../Screens/Auth/Login';
 import Header from '../Components/Header';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
   return (
