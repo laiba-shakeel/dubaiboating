@@ -7,31 +7,40 @@ import { useNavigation } from '@react-navigation/native';
 const Header = ({
   showLogin = true,
   showRegister = true,
-  backgroundColor = '#FFFFFF', // White background as per register button
-  onTitlePress = () => {},
+  backgroundColor = '#FFFFFF',
   rightComponent,
 }) => {
-    const navigation = useNavigation('');
+  const navigation = useNavigation();
+
+  const openDrawer = () => {
+    navigation.openDrawer(); // 👉 ye function drawer open karega
+  };
+
   return (
     <View style={[styles.container, { backgroundColor }]}>
-      <TouchableOpacity
-        onPress={onTitlePress}
-        style={{ width: 100, height: 70,}}
-      >
+      {/* 👉 Logo opens Drawer */}
+      <TouchableOpacity onPress={openDrawer} style={{ width: 100, height: 70 }}>
         <Image
           source={require('../../Assets/logo.png')}
-          style={styles.logo} 
+          style={styles.logo}
           resizeMode="contain"
         />
       </TouchableOpacity>
+
       <View style={styles.buttonContainer}>
         {rightComponent}
-        {showLogin && <CustomButton title="Login" onPress={()=>{
-          navigation.navigate('LoginScreen')
-        }}/>}
-        {showRegister && <CustomButton title="Register" onPress={()=>{
-          navigation.navigate('SignupScreen')
-        }} />}
+        {showLogin && (
+          <CustomButton
+            title="Login"
+            onPress={() => navigation.navigate('LoginScreen')}
+          />
+        )}
+        {showRegister && (
+          <CustomButton
+            title="Register"
+            onPress={() => navigation.navigate('SignupScreen')}
+          />
+        )}
       </View>
     </View>
   );

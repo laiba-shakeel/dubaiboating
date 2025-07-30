@@ -7,10 +7,12 @@ import {
   fishingTours,
   boatRentals,
   waterSports,
+  sellingProducts,
 } from '../../Utils/data';
 import ServiceCard from '../../Components/ServicesCard';
 import Card from '../../Components/Card';
 import styles from './style';
+import SellingProductCard from '../../Components/SellingProductCard';
 
 const HomeScreen = () => {
   const renderCards = (data, title) => (
@@ -56,6 +58,22 @@ const HomeScreen = () => {
         {renderCards(fishingTours, 'Fishing Tours')}
         {renderCards(boatRentals, 'Boats Rentals')}
         {renderCards(waterSports, 'Water Sports')}
+        <View style={{ paddingHorizontal: 10 }}>
+          <Text style={styles.heading}>Featured Boats for Sale</Text>
+          {sellingProducts.map(item => (
+            <SellingProductCard
+              key={item.id}
+              image={item.image}
+              title={item.title}
+              condition={item.condition}
+              price={item.price}
+              year={item.year}
+              length={item.length}
+              location={item.location}
+              onPress={() => console.log(`Viewing ${item.title}`)}
+            />
+          ))}
+        </View>
       </View>
     </ScrollView>
   );
