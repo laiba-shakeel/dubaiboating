@@ -154,3 +154,35 @@ export const waterSports = [
     image: require('../Assets/w4.jpg'),
   },
 ];
+export const sellingProducts = [
+  {
+    id: '1',
+    title: 'Pershing 70 Model - 2018',
+    condition: 'Used',
+    price: 'AED 7,500,000',
+    year: '2018',
+    length: '70-100 ft',
+    location: 'Dubai Marina, Dubai, UAE',
+    image: require('../Assets/s1.png'),
+  },
+  {
+    id: '2',
+    title: 'PERSHING 50 (2004)',
+    condition: 'Used',
+    price: 'AED 995,000',
+    year: '2002',
+    length: '40-49 ft',
+    location: 'Dubai',
+    image: require('../Assets/s2.png'),
+  },
+  {
+    id: '3',
+    title: 'Emirates Craft Boat',
+    condition: 'Used',
+    price: 'AED 400,000',
+    year: '2019',
+    length: '40-49 ft',
+    location: 'Dubai',
+    image: require('../Assets/s3.png'),
+  },
+];

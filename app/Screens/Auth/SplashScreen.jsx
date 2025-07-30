@@ -1,4 +1,3 @@
-// SplashScreen.js
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Video from 'react-native-video';
@@ -9,23 +8,23 @@ const SplashScreen = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('HomeScreen'); // Replace with your main screen route
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }],
+      });
     }, 5000);
-
     return () => clearTimeout(timer);
   }, [navigation]);
 
   return (
     <View style={styles.container}>
-      {/* Background Video */}
       <Video
-        source={require("../../Assets/video/video-file.mp4")} // Update path to your video
+        source={require('../../Assets/video/video-file.mp4')}
         style={styles.video}
         resizeMode="cover"
-        repeat={true} // Loop the video
-        muted={true} // Mute to avoid autoplay issues on iOS
+        repeat={true}
+        muted={true}
       />
-      {/* Text: DUBAI BOATING */}
       <Text style={styles.appName}>DUBAI BOATING</Text>
     </View>
   );
@@ -36,14 +35,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000', // Fallback background color
+    backgroundColor: '#000',
   },
   video: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    top: 0, left: 0, right: 0, bottom: 0,
     width: '100%',
     height: '100%',
   },
@@ -52,9 +48,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
-    textShadowColor: '#000',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 5,
   },
 });
 

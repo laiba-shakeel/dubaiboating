@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from '../Screens/Auth/SplashScreen';
 import HomeScreen from '../Screens/Home/HomeScreen';
-import Header from '../Components/Header'; // Adjust path
+import Header from '../Components/Header';
 import SignupScreen from '../Screens/Auth/Signup';
 import LoginScreen from '../Screens/Auth/Login';
 
@@ -49,3 +49,4 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
