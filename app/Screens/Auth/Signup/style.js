@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     // marginBottom: 20,
-    backgroundColor:"#007bff",
+    backgroundColor:"#003478",
     paddingVertical:20,
     borderTopStartRadius:12,
     borderEndStartRadius:12
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   signInButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#003478',
     paddingVertical: 15,
     borderRadius: 5,
     alignItems: 'center',
@@ -73,10 +73,10 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: '#000',
+    color: '#003478',
   },
   createAccountText: {
-    color: '#007bff',
+    color: '#003478',
     fontSize: 14,
     fontWeight: 'bold',
   },

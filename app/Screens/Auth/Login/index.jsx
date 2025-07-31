@@ -60,7 +60,7 @@ const LoginScreen = () => {
             <CheckBox
               value={rememberMe}
               onValueChange={setRememberMe}
-              tintColors={{ true: '#000', false: '#000' }}
+              tintColors={{ true: '#003478', false: '#000' }}
             />
             <Text style={styles.checkboxLabel}>Remember me</Text>
           </View>
