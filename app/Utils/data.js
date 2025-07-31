@@ -185,4 +185,194 @@ export const sellingProducts = [
     location: 'Dubai',
     image: require('../Assets/s3.png'),
   },
+  {
+    id: '4',
+    title: 'Pershing 70 Model - 2018',
+    condition: 'Used',
+    price: 'AED 7,500,000',
+    year: '2018',
+    length: '70-100 ft',
+    location: 'Dubai Marina, Dubai, UAE',
+    image: require('../Assets/s1.png'),
+  },
+  {
+    id: '5',
+    title: 'PERSHING 50 (2004)',
+    condition: 'Used',
+    price: 'AED 995,000',
+    year: '2002',
+    length: '40-49 ft',
+    location: 'Dubai',
+    image: require('../Assets/s2.png'),
+  },
+  {
+    id: '6',
+    title: 'Emirates Craft Boat',
+    condition: 'Used',
+    price: 'AED 400,000',
+    year: '2019',
+    length: '40-49 ft',
+    location: 'Dubai',
+    image: require('../Assets/s3.png'),
+  },
+];
+
+export const marinaData = [
+  {
+    id: '1',
+    image: require('../Assets/marine.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '2',
+    image: require('../Assets/marine.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '3',
+    image: require('../Assets/marine.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '4',
+    image: require('../Assets/marine.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '5',
+    image: require('../Assets/marine.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '6',
+    image: require('../Assets/marine.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  // Add more data as needed
+];
+
+export const fishingTourData = [
+  {
+    id: '1',
+    image: require('../Assets/fish1.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '2',
+    image: require('../Assets/fish2.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '3',
+    image: require('../Assets/fish3.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '4',
+    image: require('../Assets/fish4.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '5',
+    image: require('../Assets/fish5.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '6',
+    image: require('../Assets/fish6.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  // Add more data as needed
+];
+
+export const waterSportsData = [
+  {
+    id: '1',
+    image: require('../Assets/w4.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '2',
+    image: require('../Assets/fish6.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '3',
+    image: require('../Assets/w3.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '4',
+    image: require('../Assets/w1.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '5',
+    image: require('../Assets/fish5.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '6',
+    image: require('../Assets/w2.jpg'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  // Add more data as needed
+];
+
+export const scubaData = [
+  {
+    id: '1',
+    image: require('../Assets/fish1.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '2',
+    image: require('../Assets/fish2.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '3',
+    image: require('../Assets/fish3.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '4',
+    image: require('../Assets/fish4.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '5',
+    image: require('../Assets/fish5.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  {
+    id: '6',
+    image: require('../Assets/fish6.png'),
+    title: 'Member Flexible Rate',
+    description: 'Rate Details',
+  },
+  // Add more data as needed
 ];
