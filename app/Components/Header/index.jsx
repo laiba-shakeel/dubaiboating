@@ -13,12 +13,11 @@ const Header = ({
   const navigation = useNavigation();
 
   const openDrawer = () => {
-    navigation.openDrawer(); // 👉 ye function drawer open karega
+    navigation.openDrawer(); 
   };
 
   return (
     <View style={[styles.container, { backgroundColor }]}>
-      {/* 👉 Logo opens Drawer */}
       <TouchableOpacity onPress={openDrawer} style={{ width: 100, height: 70 }}>
         <Image
           source={require('../../Assets/logo.png')}
@@ -32,13 +31,13 @@ const Header = ({
         {showLogin && (
           <CustomButton
             title="Login"
-            onPress={() => navigation.navigate('LoginScreen')}
+            onPress={() => navigation.navigate('Login')}
           />
         )}
         {showRegister && (
           <CustomButton
             title="Register"
-            onPress={() => navigation.navigate('SignupScreen')}
+            onPress={() => navigation.navigate('Signup')}
           />
         )}
       </View>
