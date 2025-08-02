@@ -14,8 +14,10 @@ import Card from '../../Components/Card';
 import styles from './style';
 import SellingProductCard from '../../Components/SellingProductCard';
 import Header from '../../Components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const renderCards = (data, title) => (
     <View style={{ width: '100%', paddingHorizontal: 10 }}>
       <Text style={styles.heading}>{title}</Text>
@@ -53,7 +55,7 @@ const HomeScreen = () => {
                 title={category.title}
                 items={category.items}
                 image={category.image}
-                onPress={() => alert(`Navigating to ${category.title} screen`)}
+                onPress={() => navigation.navigate('RentBoat')}
               />
             ))}
           </ScrollView>

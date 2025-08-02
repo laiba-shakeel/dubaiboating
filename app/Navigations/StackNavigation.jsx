@@ -7,6 +7,10 @@ import Header from '../Components/Header';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BuySellScreen from '../Screens/BuySellScreen';
 import MarinasScreen from '../Screens/MarinasScreen';
+import FishingScreen from '../Screens/FishingScreen';
+import WaterSportsScreen from '../Screens/WaterSportsScreen';
+import ScubaScreen from '../Screens/ScubaScreen';
+import RentBoatScreen from '../Screens/RentBoatScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,15 +36,43 @@ const StackNavigation = () => {
           // ),
         }}
       />
-      <Stack.Screen name="BuySell" component={BuySellScreen} />
-      <Stack.Screen name="Marinas" component={MarinasScreen} />
       <Stack.Screen
-        name="LoginScreen"
+        name="BuySell"
+        component={BuySellScreen}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="RentBoat"
+        component={RentBoatScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Marinas"
+        component={MarinasScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Fishing"
+        component={FishingScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="WaterSports"
+        component={WaterSportsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Scuba"
+        component={ScubaScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
         component={LoginScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="SignupScreen"
+        name="Signup"
         component={SignupScreen}
         options={{ headerShown: false }}
       />
