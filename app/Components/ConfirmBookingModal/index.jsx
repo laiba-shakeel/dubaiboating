@@ -9,7 +9,6 @@ const ConfirmBookingModal = ({visible, onClose, onConfirm, bookingDetails}) => {
     time,
     duration = 0,
     amount = 0,
-    selectedBoat
   } = bookingDetails;    
 
   // Format time properly
@@ -25,10 +24,29 @@ const ConfirmBookingModal = ({visible, onClose, onConfirm, bookingDetails}) => {
       <View style={styles.overlay}>
         <View style={styles.modal}>
           <Text style={styles.title}>Confirm Booking</Text>
+
           <View style={styles.row}>
-            <Text style={styles.label}>Boat</Text>
+            <Text style={styles.label}>Selected Services</Text>
+            {services.length > 0 ? (
+              services.map((s, idx) => (
+                <View key={idx} style={styles.serviceItem}>
+                  <Text style={[styles.value, {flex: 1, flexShrink: 1}]}>
+                    {s.name}
+                  </Text>
+                  <Text style={[styles.value, {marginLeft: 10}]}>
+                    AED {s.price}
+                  </Text>
+                </View>
+              ))
+            ) : (
+              <Text style={styles.value}>No services selected</Text>
+            )}
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.label}>Staff</Text>
             <Text style={styles.value}>
-              {selectedBoat?.title || 'Any Available Boat'}
+              {stylist?.name || 'Any Available Staff'}
             </Text>
           </View>
 
@@ -48,7 +66,7 @@ const ConfirmBookingModal = ({visible, onClose, onConfirm, bookingDetails}) => {
 
           <View style={styles.rowTotal}>
             <Text style={styles.totalLabel}>Total Amount</Text>
-            <Text style={styles.totalValue}>$ {selectedBoat?.price || 0.00 }</Text>
+            <Text style={styles.totalValue}>AED {amount}</Text>
           </View>
 
           <View style={styles.buttonContainer}>
@@ -143,7 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 10,
     borderRadius: 8,
-    backgroundColor: '#003478',
+    backgroundColor: '#ff4081',
     alignItems: 'center',
   },
 
