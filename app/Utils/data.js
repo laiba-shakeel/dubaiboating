@@ -61,7 +61,7 @@ export const buySellBoats = [
     image: require('../Assets/b2.jpeg'),
   },
   {
-    title: 'Shark 33 Walkabouts',
+    title: 'Shark 33 Walkaround',
     location: 'Dubai',
     price: '$500,000',
     image: require('../Assets/b3.jpeg'),

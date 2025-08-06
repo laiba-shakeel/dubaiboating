@@ -1,80 +1,82 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const BookingServiceCard = ({ title, price, image, onPress, isSelected }) => {
+const BookingServiceCard = ({ title, onPress, isSelected, desc, rating }) => {
   return (
     <TouchableOpacity
-      style={[styles.card, isSelected && styles.selectedCard]}
       onPress={onPress}
-    >
-      <ImageBackground
-        source={
-          image
-            ? typeof image === 'string' && image.trim() !== ''
-              ? { uri: image }
-              : image
-            : require('../../Assets/b1.jpeg') // Ensure this path is correct
-        }
-        style={styles.cardImage}
-        resizeMode="cover"
-        onError={(error) => console.log('Image load error for', title, ':', error.nativeEvent)}
-      >
-        <View
-          style={[
-            styles.overlay,
-            {
-              backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0)',
-            },
-          ]}
-        >
-          <Text style={styles.cardTitle}>{title}</Text>
-          <Text style={styles.price}>{price}</Text>
-        </View>
-      </ImageBackground>
+      style={[styles.card, isSelected && styles.selectedCard]}>
+      <View style={styles.imageContainer}>
+        <Icon name="person-outline" size={18} color="#000" />
+      </View>
+
+      <View style={styles.col}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.desc}>{desc}</Text>
+        {/* {rating && (
+          <View style={styles.ratingContainer}>
+            <Icon name="star" size={14} color="#FFD700" />
+            <Text style={styles.rating}>{rating}</Text>
+          </View>
+        )} */}
+      </View>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   card: {
-    width: 200,
-    marginRight: 15,
-    borderRadius: 10,
-    overflow: 'hidden',
-    backgroundColor: 'transparent',
+    flexDirection: 'column',
+    padding: 10,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    width: 150, // Fixed width for horizontal layout
+    marginVertical: 5,
   },
   selectedCard: {
-    borderWidth: 5,
-    borderColor: '#003478',
+    backgroundColor: '#e6f0fa',
   },
-  cardImage: {
-    width: '100%',
-    height: 250,
-    resizeMode: 'cover',
-    borderWidth: 2,
-    borderColor: 'transparent', // Remove red border for production
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    padding: 10,
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 5,
-  },
-  price: {
-    color: '#fff',
+  title: {
     fontSize: 16,
     fontWeight: '600',
+    textAlign: 'center',
+  },
+  desc: {
+    fontSize: 12,
+    color: '#666',
+    textAlign: 'center',
+  },
+  imageContainer: {
+    borderWidth: 1, // Circular border
+    borderColor: '#ddd',
+    borderRadius: 35, // Makes it circular
+    height: 65,
+    width: 65,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  col: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 2,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+  },
+  rating: {
+    fontSize: 12,
+    color: '#000',
+    fontWeight: 'bold',
   },
 });
 

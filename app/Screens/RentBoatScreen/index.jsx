@@ -7,7 +7,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
-  FlatList,
 } from 'react-native';
 import { useRoute, useFocusEffect } from '@react-navigation/native';
 import { useRentBoatScreen } from './helper';
@@ -20,7 +19,6 @@ import AvailableServiceCard from '../../Components/AvailableServiceCard';
 import ServiceDetailContainer from "../../Components/ServiceDetailContainer'";
 import ConfirmBookingModal from '../../Components/ConfirmBookingModal';
 import { parse, isValid, isSameDay } from 'date-fns';
-import { buySellBoats } from '../../Utils/data';
 
 const RentBoatScreen = () => {
   const route = useRoute();
@@ -62,8 +60,6 @@ const RentBoatScreen = () => {
     bookingDetails,
     handleBottomBookNow,
     staffAppointments,
-    selectedBoat,
-    setSelectedBoat,
   } = useRentBoatScreen(company);
 
   useFocusEffect(
@@ -116,12 +112,6 @@ const RentBoatScreen = () => {
           })
           .filter(interval => isValid(interval.start) && isValid(interval.end))
       : [];
-  const handleBoatSelect = boat => {
-    // If the same boat is clicked again, deselect it; otherwise, select the new boat
-    setSelectedBoat(prevSelectedBoat =>
-      prevSelectedBoat?.title === boat.title ? null : boat,
-    );
-  };
 
   return (
     <KeyboardAvoidingView
@@ -134,18 +124,17 @@ const RentBoatScreen = () => {
           onClose={closeModal}
           onConfirm={() => {
             confirmBooking();
-            if (selectedDate && selectedBoat) {
+            if (selectedDate && selectedStylist) {
               handleDateSelect(selectedDate);
             }
           }}
           bookingDetails={{
             services: bookingDetails.services,
-            stylist: selectedStylist,
+            amount: totalPrice,
+            duration: totalDuration,
             date: selectedDate,
             time: selectedTime,
-            totalPrice,
-            totalDuration,
-            boat: selectedBoat,
+            stylist: selectedStylist,
           }}
         />
         <ScrollView
@@ -162,7 +151,7 @@ const RentBoatScreen = () => {
                 padding: 20,
               }}
             >
-              <ActivityIndicator size="large" color="#003478" />
+              <ActivityIndicator size="large" color="#FF4081" />
               <Text style={{ marginTop: 10, color: 'gray' }}>Loading...</Text>
             </View>
           ) : (
@@ -174,24 +163,77 @@ const RentBoatScreen = () => {
                 rating={company.rating || 4.5}
                 reviews={company.reviews || 25}
               />
-              <Text style={styles.bookingTitle}>Choose Your Boat</Text>
-              <FlatList
+
+              <Text style={styles.headerTitle}>Available Services</Text>
+              <ScrollView
                 horizontal
-                data={buySellBoats}
-                renderItem={({ item, index }) => (
-                  <BookingServiceCard
-                    key={index}
-                    title={item.title}
-                    price={item.price}
-                    image={item.image}
-                    onPress={() => handleBoatSelect(item)}
-                    isSelected={selectedBoat?.title === item.title}
-                  />
-                )}
-                keyExtractor={(item, index) => index.toString()}
                 showsHorizontalScrollIndicator={false}
-                style={styles.cardScroll}
-              />
+                style={styles.chipsContainer}
+                contentContainerStyle={styles.chipsContent}
+              >
+                {[...new Set(companyServices.map(service => service.category))]
+                  .filter(Boolean)
+                  .map((category, index) => (
+                    <View key={index}>
+                      <Chips
+                        label={category
+                          .split('_')
+                          .map(
+                            word =>
+                              word.charAt(0).toUpperCase() + word.slice(1),
+                          )
+                          .join(' ')}
+                        isSelected={activeChip === category}
+                        onSelect={() => toggleChip(category)}
+                      />
+                    </View>
+                  ))}
+              </ScrollView>
+
+              <View style={{ marginTop: 10, paddingBottom: 10 }}>
+                <ScrollView
+                  nestedScrollEnabled={true}
+                  style={{ maxHeight: 300 }}
+                  showsVerticalScrollIndicator={true}
+                >
+                  {companyServices
+                    .filter(service =>
+                      viewingChip ? service.category === viewingChip : true,
+                    )
+                    .map(service => (
+                      <AvailableServiceCard
+                        key={service.service_id.toString()}
+                        title={service.name}
+                        price={service.price}
+                        duration={service.duration_minutes}
+                        onPress={() => toggleService(service.name)}
+                        isSelected={selectedServices.includes(service.name)}
+                      />
+                    ))}
+                </ScrollView>
+              </View>
+
+              <Text style={styles.bookingTitle}>Book an Appointment</Text>
+              <Text style={styles.subTitle}>Choose Your Stylist</Text>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.bookingCardList}
+              >
+                {staffList.map((item, index) => (
+                  <BookingServiceCard
+                    key={item.staff_id?.toString() || index.toString()}
+                    title={item.name}
+                    desc={item.role}
+                    rating={item.commission_rate}
+                    onPress={() => {
+                      handleStylistSelect(item);
+                    }}
+                    isSelected={selectedStylist?.staff_id === item.staff_id}
+                  />
+                ))}
+              </ScrollView>
+
               {selectedServices.length > 0 && (
                 <View
                   style={{
@@ -272,8 +314,8 @@ const RentBoatScreen = () => {
                 style={[
                   styles.bookBtn,
                   {
-                    backgroundColor: isAllSelected() ? '#003478' : '#E0E0E0',
-                    borderColor: isAllSelected() ? '#003478' : '#BDBDBD',
+                    backgroundColor: isAllSelected() ? '#FF4081' : '#E0E0E0',
+                    borderColor: isAllSelected() ? '#FF4081' : '#BDBDBD',
                     marginTop: 20,
                   },
                 ]}
@@ -293,12 +335,15 @@ const RentBoatScreen = () => {
           )}
         </ScrollView>
         <View style={styles.fixedBottom}>
+          <Text style={{ color: 'black', fontSize: 16, paddingLeft: 15 }}>
+            {companyServices?.length || 0} services available
+          </Text>
           <TouchableOpacity
             style={{
               paddingVertical: 10,
               paddingHorizontal: 20,
               borderRadius: 20,
-              backgroundColor: '#003478',
+              backgroundColor: '#FF4081',
               alignItems: 'center',
               marginLeft: 10,
             }}
