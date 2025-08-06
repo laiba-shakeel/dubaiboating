@@ -16,9 +16,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   title: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#FFF',
+    marginRight:5,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
@@ -26,7 +27,8 @@ const styles = StyleSheet.create({
   location: {
     fontSize: 16,
     color: '#FFF',
-    marginTop: 5,
+    // marginTop: 5,
+    fontWeight: '400',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
@@ -38,9 +40,9 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   price: {
-    fontSize: 17,
+    fontSize: 16,
     color: '#FFF', // Gold color for rating
-    fontWeight: 'bold',
+    fontWeight: '400',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,

@@ -4,7 +4,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  
+  },
+  cardScroll: {
+    paddingHorizontal: 10,
+    marginBottom: 20,
+    gap: 10,
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'transparent',
   },
   cardList: {
     gap: 10,
@@ -41,7 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent:'flex-end',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderTopWidth: 1,
@@ -53,48 +60,47 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     zIndex: 10,
   },
-serviceScrollContainer: {
-  height: 250, // You can adjust this
-  marginHorizontal: 10,
-  marginTop: 10,
-},
+  serviceScrollContainer: {
+    height: 250, // You can adjust this
+    marginHorizontal: 10,
+    marginTop: 10,
+  },
 
-headerTitle: {
-  color: 'black',
-  fontSize: 20,
-  paddingHorizontal: 12,
-  paddingTop: 12,
-  fontWeight: 'bold',
-},
+  headerTitle: {
+    color: 'black',
+    fontSize: 20,
+    paddingHorizontal: 12,
+    paddingTop: 12,
+    fontWeight: 'bold',
+  },
 
-bookingTitle: {
-  color: 'black',
-  fontSize: 22,
-  paddingHorizontal: 12,
-  paddingTop: 8,
-  fontWeight: 'bold',
-},
+  bookingTitle: {
+    color: 'black',
+    fontSize: 22,
+    paddingHorizontal: 12,
+    paddingTop: 8,
+    fontWeight: 'bold',
+    marginBottom:10
+  },
 
-subTitle: {
-  color: 'black',
-  fontSize: 16,
-  paddingHorizontal: 12,
-  paddingTop: 8,
-  fontWeight: '600',
-},
+  subTitle: {
+    color: 'black',
+    fontSize: 16,
+    paddingHorizontal: 12,
+    paddingTop: 8,
+    fontWeight: '600',
+  },
 
-bookBtn: {
-  paddingVertical: 10,
-  paddingHorizontal: 40,
-  borderRadius: 20,
-  borderWidth: 1,
-  alignItems: 'center',
-  marginHorizontal: 15,
-  // marginVertical: 15,
-  marginBottom: 85,
-},
-
-
+  bookBtn: {
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 20,
+    borderWidth: 1,
+    alignItems: 'center',
+    marginHorizontal: 15,
+    // marginVertical: 15,
+    marginBottom: 85,
+  },
 });
 
 export default styles;
