@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-community/checkbox": "^0.5.20",
     "@react-native-picker/picker": "^2.11.1",
     "@react-native/new-app-screen": "0.80.1",
@@ -17,7 +18,7 @@
     "@react-navigation/native": "^7.1.14",
     "@react-navigation/native-stack": "^7.3.23",
     "@react-navigation/stack": "^7.4.2",
-    "axios": "^1.11.0",
+    "axios": "^0.27.2",
     "date-fns": "^4.1.0",
     "react": "19.1.0",
     "react-native": "0.80.1",
@@ -51,6 +52,7 @@
     "prettier": "2.8.8",
     "react-native-svg-transformer": "^1.5.1",
     "react-test-renderer": "19.1.0",
+    "reactotron-react-native": "^5.1.15",
     "typescript": "5.0.4"
   },
   "engines": {

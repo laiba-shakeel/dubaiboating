@@ -16,12 +16,12 @@ const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="SplashScreen">
-      <Stack.Screen
+    <Stack.Navigator initialRouteName="HomeScreen">
+      {/* <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
         options={{ headerShown: false }}
-      />
+      /> */}
       <Stack.Screen
         name="HomeScreen"
         component={HomeScreen}

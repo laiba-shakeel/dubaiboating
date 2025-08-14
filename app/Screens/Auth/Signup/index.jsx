@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -7,32 +7,67 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import styles from './style';
 import CheckBox from '@react-native-community/checkbox';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { RegisterUser } from '../../../API/Auth';
+import { AuthContext } from '../../../Contexts/AuthContext';
 
 const SignupScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const { register: authContextRegister } = useContext(AuthContext);
 
-  const handleSignup = () => {
-    console.log('Signup button pressed');
+  const handleSignup = async () => {
+    // Required field check
+    if (!name || !email || !password) {
+      Alert.alert('Error', 'Username, Email, and Password are required');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await RegisterUser({
+        username: name,
+        email,
+        password,
+      });
+
+      console.log('Signup Success:', res);
+      Alert.alert('Success', 'Account created successfully');
+
+      authContextRegister(res.user);
+    } catch (error) {
+      let errorMessage = 'Something went wrong';
+
+      if (error.response?.data?.errors) {
+        const errors = error.response.data.errors;
+        // Object ke values ko join karo ek string me
+        errorMessage = Object.values(errors)
+          .map(errArr => errArr.join(', '))
+          .join('\n');
+      }
+
+      Alert.alert('Signup Failed', errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
     >
       <View style={styles.container}>
+        {/* Header */}
         <View style={styles.header}>
           <View style={styles.avatar}>
             <Ionicons name="person" size={30} color="black" />
@@ -40,14 +75,14 @@ const SignupScreen = () => {
           <Text style={styles.welcomeText}>Create Account</Text>
           <Text style={styles.subText}>Please sign up to your account</Text>
         </View>
+
+        {/* Inputs */}
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
             placeholder="Your Name"
             value={name}
             onChangeText={setName}
-            keyboardType="default"
-            autoCapitalize="words"
           />
           <TextInput
             style={styles.input}
@@ -62,15 +97,9 @@ const SignupScreen = () => {
             placeholder="Password"
             value={password}
             onChangeText={setPassword}
-            secureTextEntry={true}
+            secureTextEntry
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            secureTextEntry={true}
-          />
+
           <View style={styles.checkboxContainer}>
             <CheckBox
               value={rememberMe}
@@ -82,6 +111,7 @@ const SignupScreen = () => {
             </Text>
           </View>
 
+          {/* Signup Button */}
           <TouchableOpacity
             style={styles.signInButton}
             onPress={handleSignup}
@@ -94,6 +124,8 @@ const SignupScreen = () => {
             )}
           </TouchableOpacity>
         </View>
+
+        {/* Footer */}
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>

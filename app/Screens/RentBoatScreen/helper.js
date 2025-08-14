@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import {
   GetAvailableStaff,
   GetCompanyServices,
   GetCompanyStaff,
 } from '../../API/Services';
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 
 export const useRentBoatScreen = companyData => {
   const [activeChip, setActiveChip] = useState(null);
@@ -22,85 +22,84 @@ export const useRentBoatScreen = companyData => {
   const [staffAvailability, setStaffAvailability] = useState({});
   const [staffAppointments, setStaffAppointments] = useState({});
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [selectedBoat, setSelectedBoat] = useState(null);
 
- useEffect(() => {
-  if (companyData?.id) {
-    setIsLoadingData(true);
+  useEffect(() => {
+    if (companyData?.id) {
+      setIsLoadingData(true);
 
-    const loadInitialData = async () => {
-      try {
-        const [rawStaff, rawServices] = await Promise.all([
-          GetCompanyStaff(companyData.id),
-          GetCompanyServices(companyData.id),
-        ]);
+      const loadInitialData = async () => {
+        try {
+          const [rawStaff, rawServices] = await Promise.all([
+            GetCompanyStaff(companyData.id),
+            GetCompanyServices(companyData.id),
+          ]);
 
-        const staff = rawStaff?.data || rawStaff || [];
-        const services = rawServices?.data || rawServices || [];
+          const staff = rawStaff?.data || rawStaff || [];
+          const services = rawServices?.data || rawServices || [];
 
-        setStaffList(staff);
-        setCompanyServices(services);
+          setStaffList(staff);
+          setCompanyServices(services);
 
-        if (staff.length > 0) {
-          const firstStaff = staff[0];
-          setSelectedStylist(firstStaff); // ✅ Auto-select first stylist
-        }
-
-        const availabilityMap = {};
-        const appointmentMap = {};
-
-        for (const person of staff) {
-          const staffId = person.staff_id;
-
-          try {
-            const res = await GetAvailableStaff(staffId);
-            const appointments = Array.isArray(res?.data) ? res.data : [];
-
-            console.log(
-              appointments,
-              'Data of the API of staff availability is here',
-            );
-
-            appointmentMap[staffId] = appointments;
-
-            const busyIntervals = appointments.map(appointment => {
-              const start = new Date(appointment.appointment_date);
-              const end = new Date(
-                start.getTime() +
-                  Number(appointment.duration_minutes || 0) * 60000,
-              );
-              return { start, end };
-            });
-
-            availabilityMap[staffId] = busyIntervals;
-          } catch (err) {
-            console.error(
-              `Error loading availability for staff ${staffId}`,
-              err,
-            );
-            availabilityMap[staffId] = [];
-            appointmentMap[staffId] = [];
+          if (staff.length > 0) {
+            const firstStaff = staff[0];
+            setSelectedStylist(firstStaff); // ✅ Auto-select first stylist
           }
+
+          const availabilityMap = {};
+          const appointmentMap = {};
+
+          for (const person of staff) {
+            const staffId = person.staff_id;
+
+            try {
+              const res = await GetAvailableStaff(staffId);
+              const appointments = Array.isArray(res?.data) ? res.data : [];
+
+              console.log(
+                appointments,
+                'Data of the API of staff availability is here',
+              );
+
+              appointmentMap[staffId] = appointments;
+
+              const busyIntervals = appointments.map(appointment => {
+                const start = new Date(appointment.appointment_date);
+                const end = new Date(
+                  start.getTime() +
+                    Number(appointment.duration_minutes || 0) * 60000,
+                );
+                return { start, end };
+              });
+
+              availabilityMap[staffId] = busyIntervals;
+            } catch (err) {
+              console.error(
+                `Error loading availability for staff ${staffId}`,
+                err,
+              );
+              availabilityMap[staffId] = [];
+              appointmentMap[staffId] = [];
+            }
+          }
+
+          setStaffAvailability(availabilityMap);
+          setStaffAppointments(appointmentMap);
+
+          // ✅ Auto-select today's date and trigger logic
+          const today = format(new Date(), 'MM/dd/yyyy');
+          setSelectedDate(today);
+          handleDateSelect(today);
+        } catch (error) {
+          console.error('API error:', error);
+        } finally {
+          setIsLoadingData(false);
         }
+      };
 
-        setStaffAvailability(availabilityMap);
-        setStaffAppointments(appointmentMap);
-
-        // ✅ Auto-select today's date and trigger logic
-        const today = format(new Date(), 'MM/dd/yyyy');
-        setSelectedDate(today);
-        handleDateSelect(today);
-
-      } catch (error) {
-        console.error('API error:', error);
-      } finally {
-        setIsLoadingData(false);
-      }
-    };
-
-    loadInitialData();
-  }
-}, [companyData?.id]);
-
+      loadInitialData();
+    }
+  }, [companyData?.id]);
 
   // Chips (categories) toggle
   const toggleChip = chip => {
@@ -128,10 +127,9 @@ export const useRentBoatScreen = companyData => {
 
   const isAllSelected = () => {
     return (
-      selectedServices.length > 0 &&
-      selectedStylist &&
-      selectedDate &&
-      selectedTime
+      // selectedServices.length > 0 &&
+      // selectedStylist &&
+      selectedDate && selectedTime && selectedBoat
     );
   };
 
@@ -145,12 +143,13 @@ export const useRentBoatScreen = companyData => {
   };
 
   const resetState = () => {
-    setActiveChip(null);
-    setViewingChip(null);
-    setSelectedServices([]);
-    setSelectedStylist(null);
+    // setActiveChip(null);
+    // setViewingChip(null);
+    // setSelectedServices([]);
+    // setSelectedStylist(null);
     setSelectedDate(null);
     setSelectedTime(null);
+    setSelectedBoat(null);
   };
 
   const closeModal = () => setIsModalVisible(false);
@@ -215,5 +214,7 @@ export const useRentBoatScreen = companyData => {
     staffAppointments,
     currentMonth,
     setCurrentMonth,
+    selectedBoat,
+    setSelectedBoat,
   };
 };

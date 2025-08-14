@@ -25,7 +25,7 @@ const Header = ({
           resizeMode="contain"
         />
       </TouchableOpacity>
-
+{/* 
       <View style={styles.buttonContainer}>
         {rightComponent}
         {showLogin && (
@@ -40,7 +40,7 @@ const Header = ({
             onPress={() => navigation.navigate('Signup')}
           />
         )}
-      </View>
+      </View> */}
     </View>
   );
 };
