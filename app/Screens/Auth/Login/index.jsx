@@ -7,11 +7,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import styles from './style';
 import CheckBox from '@react-native-community/checkbox';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { LoginUser } from '../../../API/Auth'; // <-- apne API function ka path lagao
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -20,17 +22,33 @@ const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  const handleLogin = () => {
-    console.log('Login button pressed');
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please enter both email and password');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await LoginUser({ email, password });
+      console.log('Login Success:', res);
+
+      Alert.alert('Success', 'You have logged in successfully');
+      navigation.navigate('HomeScreen');
+    } catch (error) {
+      Alert.alert('Login Failed', error.response?.data?.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
     >
       <View style={styles.container}>
+        {/* Header */}
         <View style={styles.header}>
           <View style={styles.avatar}>
             <Ionicons name="person" size={30} color="black" />
@@ -39,6 +57,7 @@ const LoginScreen = () => {
           <Text style={styles.subText}>Please sign in to your account</Text>
         </View>
 
+        {/* Inputs */}
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -65,10 +84,7 @@ const LoginScreen = () => {
             <Text style={styles.checkboxLabel}>Remember me</Text>
           </View>
 
-          <TouchableOpacity style={styles.forgotLink}>
-            <Text style={styles.forgotText}>Forgot password?</Text>
-          </TouchableOpacity>
-
+          {/* Login Button */}
           <TouchableOpacity
             style={styles.signInButton}
             onPress={handleLogin}
@@ -82,6 +98,7 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
 
+        {/* Footer */}
         <View style={styles.footer}>
           <Text style={styles.footerText}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Signup')}>

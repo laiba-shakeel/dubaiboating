@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject, // Covers the entire container
-    backgroundColor: 'rgba(0, 0, 0, 0.2)', // Dark overlay with 50% opacity (adjust 0.5 to 0.3-0.7 as needed)
+    backgroundColor: 'rgba(0, 0, 0, 0.3)', // Dark overlay with 50% opacity (adjust 0.5 to 0.3-0.7 as needed)
   },
   content: {
     gap: 15,

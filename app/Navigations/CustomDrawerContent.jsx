@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -8,9 +8,11 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useFilter } from '../Contexts/FilterContext';
+import { AuthContext } from '../Contexts/AuthContext';
 
 const CustomDrawerContent = props => {
   const { navigation } = props;
+  const { user, logout } = useContext(AuthContext);
   const currentRoute =
     navigation.getState()?.routes[navigation.getState().index]?.name || '';
   const {
@@ -26,7 +28,7 @@ const CustomDrawerContent = props => {
   const [isFilterActive, setIsFilterActive] = useState(false); // New state to toggle filter view
 
   const menuItems = [
-    { name: 'Home', route: 'Home' },
+    { name: 'Home', route: 'HomeScreen' },
     { name: 'Buy & Sell Boats', route: 'BuySell' },
     { name: 'Marinas', route: 'Marinas' },
     { name: 'Fishing', route: 'Fishing' },
@@ -59,6 +61,11 @@ const CustomDrawerContent = props => {
     }
     setIsFilterActive(true); // Turn on filter view
   };
+const handleLogout = async () => {
+  await logout();
+  props.navigation.closeDrawer();
+  props.navigation.navigate("HomeScreen"); // Drawer ka direct screen
+};
 
   console.log('Current Route:', currentRoute); // Debug log
 
@@ -136,14 +143,24 @@ const CustomDrawerContent = props => {
         )}
       </ScrollView>
 
-      <View style={styles.bottomButtons}>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.bottomButton}>Login</Text>
+     <View style={styles.bottomButtons}>
+      {user ? (
+        // Logged in -> Logout only
+        <TouchableOpacity onPress={handleLogout}>
+          <Text style={styles.bottomButton}>Logout</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-          <Text style={styles.bottomButton}>Register</Text>
-        </TouchableOpacity>
-      </View>
+      ) : (
+        // Not logged in -> Login & Register dono
+        <>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
+            <Text style={styles.bottomButton}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Signup')}>
+            <Text style={styles.bottomButton}>Register</Text>
+          </TouchableOpacity>
+        </>
+      )}
+    </View>
     </View>
   );
 };
