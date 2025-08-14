@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import CheckBox from '@react-native-community/checkbox';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { LoginUser } from '../../../API/Auth'; // <-- apne API function ka path lagao
+import { AuthContext } from '../../../Contexts/AuthContext';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -21,6 +22,7 @@ const LoginScreen = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const { login: authContextLogin } = useContext(AuthContext);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -34,9 +36,12 @@ const LoginScreen = () => {
       console.log('Login Success:', res);
 
       Alert.alert('Success', 'You have logged in successfully');
-      navigation.navigate('HomeScreen');
+      authContextLogin(res.user);
     } catch (error) {
-      Alert.alert('Login Failed', error.response?.data?.message || 'Something went wrong');
+      Alert.alert(
+        'Login Failed',
+        error.response?.data?.message || 'Something went wrong',
+      );
     } finally {
       setLoading(false);
     }

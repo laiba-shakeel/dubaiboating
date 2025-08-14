@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import CheckBox from '@react-native-community/checkbox';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { RegisterUser } from '../../../API/Auth';
+import { AuthContext } from '../../../Contexts/AuthContext';
 
 const SignupScreen = () => {
   const [name, setName] = useState('');
@@ -22,6 +23,7 @@ const SignupScreen = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const { register: authContextRegister } = useContext(AuthContext);
 
   const handleSignup = async () => {
     // Required field check
@@ -40,7 +42,8 @@ const SignupScreen = () => {
 
       console.log('Signup Success:', res);
       Alert.alert('Success', 'Account created successfully');
-      navigation.navigate('HomeScreen');
+
+      authContextRegister(res.user);
     } catch (error) {
       let errorMessage = 'Something went wrong';
 

@@ -61,11 +61,12 @@ const CustomDrawerContent = props => {
     }
     setIsFilterActive(true); // Turn on filter view
   };
-const handleLogout = async () => {
-  await logout();
-  props.navigation.closeDrawer();
-  props.navigation.navigate("HomeScreen"); // Drawer ka direct screen
-};
+  
+  const handleLogout = async () => {
+    await logout();
+    props.navigation.closeDrawer();
+    props.navigation.navigate('HomeScreen'); // Drawer ka direct screen
+  };
 
   console.log('Current Route:', currentRoute); // Debug log
 
@@ -143,24 +144,28 @@ const handleLogout = async () => {
         )}
       </ScrollView>
 
-     <View style={styles.bottomButtons}>
-      {user ? (
-        // Logged in -> Logout only
-        <TouchableOpacity onPress={handleLogout}>
-          <Text style={styles.bottomButton}>Logout</Text>
-        </TouchableOpacity>
-      ) : (
-        // Not logged in -> Login & Register dono
-        <>
-          <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
-            <Text style={styles.bottomButton}>Login</Text>
+      <View style={styles.bottomButtons}>
+        {user ? (
+          // Logged in -> Logout only
+          <TouchableOpacity onPress={handleLogout}>
+            <Text style={styles.bottomButton}>Logout</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.navigation.navigate('Signup')}>
-            <Text style={styles.bottomButton}>Register</Text>
-          </TouchableOpacity>
-        </>
-      )}
-    </View>
+        ) : (
+          // Not logged in -> Login & Register dono
+          <>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Login')}
+            >
+              <Text style={styles.bottomButton}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Signup')}
+            >
+              <Text style={styles.bottomButton}>Register</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </View>
     </View>
   );
 };

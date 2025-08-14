@@ -11,10 +11,13 @@ import LoginScreen from '../Screens/Auth/Login';
 import SignupScreen from '../Screens/Auth/Signup';
 import StackNavigation from './StackNavigation';
 import { FilterProvider } from '../Contexts/FilterContext';
+import { AuthContext } from '../Contexts/AuthContext';
 
 const Drawer = createDrawerNavigator();
 
 const AppNavigation = () => {
+  const { user } = React.useContext(AuthContext);
+
   return (
     <FilterProvider>
       <Drawer.Navigator
@@ -31,8 +34,12 @@ const AppNavigation = () => {
         <Drawer.Screen name="Fishing" component={FishingScreen} />
         <Drawer.Screen name="WaterSports" component={WaterSportsScreen} />
         <Drawer.Screen name="Scuba" component={ScubaScreen} />
-        <Drawer.Screen name="Login" component={LoginScreen} />
-        <Drawer.Screen name="Signup" component={SignupScreen} />
+        {!user && (
+          <>
+            <Drawer.Screen name="Login" component={LoginScreen} />
+            <Drawer.Screen name="Signup" component={SignupScreen} />
+          </>
+        )}
       </Drawer.Navigator>
     </FilterProvider>
   );
