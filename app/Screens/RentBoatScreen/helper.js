@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   GetAvailableStaff,
   GetCompanyServices,
@@ -23,6 +23,7 @@ export const useRentBoatScreen = companyData => {
   const [staffAppointments, setStaffAppointments] = useState({});
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedBoat, setSelectedBoat] = useState(null);
+  const [isBoatModalVisible, setBoatModalVisible] = React.useState(false);
 
   useEffect(() => {
     if (companyData?.id) {
@@ -55,12 +56,6 @@ export const useRentBoatScreen = companyData => {
             try {
               const res = await GetAvailableStaff(staffId);
               const appointments = Array.isArray(res?.data) ? res.data : [];
-
-              console.log(
-                appointments,
-                'Data of the API of staff availability is here',
-              );
-
               appointmentMap[staffId] = appointments;
 
               const busyIntervals = appointments.map(appointment => {
@@ -216,5 +211,7 @@ export const useRentBoatScreen = companyData => {
     setCurrentMonth,
     selectedBoat,
     setSelectedBoat,
+    isBoatModalVisible,
+    setBoatModalVisible,
   };
 };

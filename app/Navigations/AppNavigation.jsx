@@ -12,6 +12,7 @@ import SignupScreen from '../Screens/Auth/Signup';
 import StackNavigation from './StackNavigation';
 import { FilterProvider } from '../Contexts/FilterContext';
 import { AuthContext } from '../Contexts/AuthContext';
+import RentBoatScreen from '../Screens/RentBoatScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -28,6 +29,7 @@ const AppNavigation = () => {
         }}
       >
         <Drawer.Screen name="MainStack" component={StackNavigation} />
+        <Drawer.Screen name="RentBoat" component={RentBoatScreen} />
         <Drawer.Screen name="HomeScreen" component={HomeScreen} />
         <Drawer.Screen name="BuySell" component={BuySellScreen} />
         <Drawer.Screen name="Marinas" component={MarinasScreen} />

@@ -7,14 +7,14 @@ const styles = StyleSheet.create({
   },
   cardScroll: {
     paddingHorizontal: 10,
-    marginBottom: 20,
+    marginBottom: 5,
     gap: 10,
     width: '100%',
     flex: 1,
     backgroundColor: 'transparent',
   },
   cardList: {
-    gap: 10,
+    gap: 5,
   },
   chipsContainer: {
     paddingHorizontal: 7,
