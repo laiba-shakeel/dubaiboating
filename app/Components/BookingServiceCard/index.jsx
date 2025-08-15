@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 const BookingServiceCard = ({ title, price, image, onPress, isSelected }) => {
   return (
@@ -13,68 +7,65 @@ const BookingServiceCard = ({ title, price, image, onPress, isSelected }) => {
       style={[styles.card, isSelected && styles.selectedCard]}
       onPress={onPress}
     >
-      <ImageBackground
+      {/* Round Image */}
+      <Image
         source={
           image
             ? typeof image === 'string' && image.trim() !== ''
               ? { uri: image }
               : image
-            : require('../../Assets/b1.jpeg') // Ensure this path is correct
+            : require('../../Assets/b1.jpeg')
         }
         style={styles.cardImage}
         resizeMode="cover"
-        onError={(error) => console.log('Image load error for', title, ':', error.nativeEvent)}
-      >
-        <View
-          style={[
-            styles.overlay,
-            {
-              backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0)',
-            },
-          ]}
-        >
-          <Text style={styles.cardTitle}>{title}</Text>
-          <Text style={styles.price}>{price}</Text>
-        </View>
-      </ImageBackground>
+        onError={error =>
+          console.log('Image load error for', title, ':', error.nativeEvent)
+        }
+      />
+      {/* Title & Price Below */}
+      <View style={styles.infoContainer}>
+        <Text style={styles.cardTitle}>{title}</Text>
+        <Text style={styles.price}>{price}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    width: 200,
+    width: 160,
     marginRight: 15,
-    borderRadius: 10,
-    overflow: 'hidden',
-    backgroundColor: 'transparent',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingVertical: 10,
   },
   selectedCard: {
-    borderWidth: 5,
+    borderWidth: 2,
     borderColor: '#003478',
   },
   cardImage: {
-    width: '100%',
-    height: 250,
-    resizeMode: 'cover',
-    borderWidth: 2,
-    borderColor: 'transparent', // Remove red border for production
+    width: 120,
+    height: 120,
+    borderRadius: 60, // Makes the image circular
+    borderWidth: 3,
+    borderColor: '#003478',
+    marginBottom: 10,
   },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    padding: 10,
+  infoContainer: {
+    alignItems: 'center',
   },
   cardTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 5,
+    color: '#000',
+    textAlign: 'center',
   },
   price: {
-    color: '#fff',
-    fontSize: 16,
+    color: '#555',
+    fontSize: 14,
     fontWeight: '600',
+    marginTop: 4,
   },
 });
 

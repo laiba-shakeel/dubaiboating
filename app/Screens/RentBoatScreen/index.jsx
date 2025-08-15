@@ -21,12 +21,13 @@ import ServiceDetailContainer from "../../Components/ServiceDetailContainer'";
 import ConfirmBookingModal from '../../Components/ConfirmBookingModal';
 import { parse, isValid, isSameDay } from 'date-fns';
 import { buySellBoats } from '../../Utils/data';
+import BoatDetailModal from '../../Components/BoatDetailModal';
 
 const RentBoatScreen = () => {
   const route = useRoute();
   const { companyData } = route.params || {};
   const scrollRef = useRef(null);
-  
+
   // Use companyId = 1 if companyData is missing
   const company = companyData || {
     id: 1,
@@ -64,6 +65,8 @@ const RentBoatScreen = () => {
     staffAppointments,
     selectedBoat,
     setSelectedBoat,
+    isBoatModalVisible,
+    setBoatModalVisible,
   } = useRentBoatScreen(company);
 
   useFocusEffect(
@@ -116,12 +119,35 @@ const RentBoatScreen = () => {
           })
           .filter(interval => isValid(interval.start) && isValid(interval.end))
       : [];
-  const handleBoatSelect = boat => {
-    // If the same boat is clicked again, deselect it; otherwise, select the new boat
-    setSelectedBoat(prevSelectedBoat =>
-      prevSelectedBoat?.title === boat.title ? null : boat,
-    );
-  };
+
+ // Inside RentBoatScreen component
+const handleBoatClick = (boat) => {
+  setSelectedBoat({
+    ...boat,
+    length: '70-100 ft.', // Example from image
+    year: '2018',
+    brand: 'yamaha',
+    model: '2018',
+    condition: 'Used',
+    loa: '21.14',
+    lh: '20.88',
+    maxBeam: '5.00',
+    engines: '2 x MTU V10 2000 M96',
+    engineHP: '1.623',
+    transmission: 'Surface Drives',
+    topSystem: '85P - Surface Drives',
+    maxSpeed: '16',
+    cruiseSpeed: '40',
+    range: '300',
+    material: 'GRP',
+    ladenDisplacement: '45.17',
+    unladenDisplacement: '39.45',
+    fuel: '1,500',
+    water: '900',
+    gyroStabilizers: 'Seakeeper NG9',
+  });
+  setBoatModalVisible(true);
+};
 
   return (
     <KeyboardAvoidingView
@@ -147,6 +173,11 @@ const RentBoatScreen = () => {
             totalDuration,
             boat: selectedBoat,
           }}
+        />
+        <BoatDetailModal
+          visible={isBoatModalVisible}
+          onClose={() => setBoatModalVisible(false)}
+          boat={selectedBoat}
         />
         <ScrollView
           ref={scrollRef}
@@ -183,9 +214,8 @@ const RentBoatScreen = () => {
                     key={index}
                     title={item.title}
                     price={item.price}
-                    image={item.image}
-                    onPress={() => handleBoatSelect(item)}
-                    isSelected={selectedBoat?.title === item.title}
+                    image={item.images ? item.images[0] : item.images}
+                    onPress={() => handleBoatClick(item)}
                   />
                 )}
                 keyExtractor={(item, index) => index.toString()}
@@ -198,7 +228,7 @@ const RentBoatScreen = () => {
                     backgroundColor: '#fff',
                     borderRadius: 10,
                     padding: 15,
-                    marginTop: 15,
+                    marginTop: 10,
                   }}
                 >
                   <Text

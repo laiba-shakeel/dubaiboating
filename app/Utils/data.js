@@ -52,27 +52,32 @@ export const buySellBoats = [
     title: 'Warrior 33"',
     location: 'Dubai',
     price: '$685,000',
-    image: require('../Assets/b1.jpeg'),
+    images: [
+      require('../Assets/b1.jpeg'),
+      require('../Assets/b2.jpeg'),
+      require('../Assets/b3.jpeg'),
+    ],
   },
   {
     title: 'Shark 33 Walkaround',
     location: 'Dubai',
     price: '$500,000',
-    image: require('../Assets/b2.jpeg'),
-  },
-  {
-    title: 'Shark 33 Walkaround',
-    location: 'Dubai',
-    price: '$500,000',
-    image: require('../Assets/b3.jpeg'),
+    images: [
+      require('../Assets/b2.jpeg'),
+      require('../Assets/b4.jpeg'),
+    ],
   },
   {
     title: 'Shark 22 - Fishing Boat',
     location: 'Dubai',
     price: '$300,000',
-    image: require('../Assets/b4.jpeg'),
+    images: [
+      require('../Assets/b4.jpeg'),
+      require('../Assets/b1.jpeg'),
+    ],
   },
 ];
+
 
 export const fishingTours = [
   {
