@@ -55,7 +55,13 @@ const HomeScreen = () => {
                 title={category.title}
                 items={category.items}
                 image={category.image}
-                onPress={() => navigation.navigate('RentBoat')}
+                onPress={() => {
+                  if (category.title === 'Rental Boats') {
+                    navigation.navigate('RentalBoats'); // 👈 special case
+                  } else {
+                    navigation.navigate('RentBoat'); // 👈 default
+                  }
+                }}
               />
             ))}
           </ScrollView>

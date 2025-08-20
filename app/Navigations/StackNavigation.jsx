@@ -11,6 +11,7 @@ import FishingScreen from '../Screens/FishingScreen';
 import WaterSportsScreen from '../Screens/WaterSportsScreen';
 import ScubaScreen from '../Screens/ScubaScreen';
 import RentBoatScreen from '../Screens/RentBoatScreen';
+import RentalBoatsScreen from '../Screens/RentalBoats';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,11 @@ const StackNavigation = () => {
        <Stack.Screen
         name="RentBoat"
         component={RentBoatScreen}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="RentalBoats"
+        component={RentalBoatsScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
