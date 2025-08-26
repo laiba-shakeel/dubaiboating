@@ -16,8 +16,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    width:"100%",
-    flex:1
+    width: '100%',
+    flex: 1,
+  },
+  horizontal: {
+    paddingHorizontal: 10,
   },
 });
 

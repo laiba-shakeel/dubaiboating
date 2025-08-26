@@ -12,6 +12,7 @@ import WaterSportsScreen from '../Screens/WaterSportsScreen';
 import ScubaScreen from '../Screens/ScubaScreen';
 import RentBoatScreen from '../Screens/RentBoatScreen';
 import RentalBoatsScreen from '../Screens/RentalBoats';
+import ProfileScreen from '../Screens/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +81,11 @@ const StackNavigation = () => {
       <Stack.Screen
         name="Signup"
         component={SignupScreen}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
