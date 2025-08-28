@@ -37,6 +37,10 @@ const LoginScreen = () => {
 
       Alert.alert('Success', 'You have logged in successfully');
       authContextLogin(res.user);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }], 
+      });
     } catch (error) {
       Alert.alert(
         'Login Failed',

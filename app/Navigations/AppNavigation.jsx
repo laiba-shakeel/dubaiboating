@@ -14,6 +14,7 @@ import { FilterProvider } from '../Contexts/FilterContext';
 import { AuthContext } from '../Contexts/AuthContext';
 import RentBoatScreen from '../Screens/RentBoatScreen';
 import RentalBoatsScreen from '../Screens/RentalBoats';
+import ProfileScreen from '../Screens/ProfileScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -38,6 +39,8 @@ const AppNavigation = () => {
         <Drawer.Screen name="Fishing" component={FishingScreen} />
         <Drawer.Screen name="WaterSports" component={WaterSportsScreen} />
         <Drawer.Screen name="Scuba" component={ScubaScreen} />
+        <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+
         {!user && (
           <>
             <Drawer.Screen name="Login" component={LoginScreen} />

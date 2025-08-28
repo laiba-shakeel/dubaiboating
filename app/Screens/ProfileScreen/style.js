@@ -87,6 +87,91 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
+  card: {
+  backgroundColor: '#fff',
+  borderRadius: 10,
+  margin: 15,
+  // marginBottom:35,
+  // marginTop:20,
+  shadowColor: '#000',
+  shadowOpacity: 0.1,
+  shadowOffset: { width: 0, height: 2 },
+  shadowRadius: 5,
+  elevation: 3,
+  overflow: 'hidden',
+},
+
+cardHeader: {
+  backgroundColor: '#003478',
+  alignItems: 'center',
+  padding: 20,
+},
+
+cardTitle: {
+  color: '#fff',
+  fontSize: 20,
+  fontWeight: 'bold',
+  marginTop: 5,
+},
+
+cardSubtitle: {
+  color: '#e0e0e0',
+  fontSize: 14,
+  marginTop: 2,
+},
+
+cardBody: {
+  padding: 15,
+},
+
+label: {
+  fontSize: 16,
+  color: '#003478',
+  marginBottom: 5,
+  fontWeight: '600',
+},
+
+input: {
+  borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 8,
+  padding: 10,
+  marginBottom: 15,
+  fontSize: 16,
+  backgroundColor: '#fff',
+},
+
+passwordContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  borderWidth: 1,
+  borderColor: '#ccc',
+  borderRadius: 8,
+  paddingHorizontal: 10,
+  marginBottom: 15,
+  backgroundColor: '#fff',
+},
+
+passwordInput: {
+  flex: 1,
+  fontSize: 16,
+  paddingVertical: 10,
+},
+
+saveButton: {
+  padding: 12,
+  borderRadius: 8,
+  alignItems: 'center',
+  marginTop: 10,
+  marginBottom:25
+},
+
+saveText: {
+  color: '#fff',
+  fontSize: 16,
+  fontWeight: 'bold',
+},
+
 });
 
 export default styles;
