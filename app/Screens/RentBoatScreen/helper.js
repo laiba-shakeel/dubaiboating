@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import {
-  GetAvailableStaff,
-  GetCompanyServices,
-  GetCompanyStaff,
-} from '../../API/Services';
 import { format } from 'date-fns';
 
 export const useRentBoatScreen = companyData => {
@@ -15,16 +10,18 @@ export const useRentBoatScreen = companyData => {
     format(new Date(), 'MM/dd/yyyy'),
   );
   const [selectedTime, setSelectedTime] = useState(null);
-  const [staffList, setStaffList] = useState([]);
-  const [companyServices, setCompanyServices] = useState([]);
-  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [staffList, setStaffList] = useState([]); // Default to empty
+  const [companyServices, setCompanyServices] = useState([]); // Default to empty
+  const [isLoadingData, setIsLoadingData] = useState(false); // No API, so no loading
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [staffAvailability, setStaffAvailability] = useState({});
-  const [staffAppointments, setStaffAppointments] = useState({});
+  const [staffAvailability, setStaffAvailability] = useState({}); // Default to empty
+  const [staffAppointments, setStaffAppointments] = useState({}); // Default to empty
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedBoat, setSelectedBoat] = useState(null);
   const [isBoatModalVisible, setBoatModalVisible] = React.useState(false);
 
+  // Commented out API-related useEffect
+  /*
   useEffect(() => {
     if (companyData?.id) {
       setIsLoadingData(true);
@@ -95,6 +92,7 @@ export const useRentBoatScreen = companyData => {
       loadInitialData();
     }
   }, [companyData?.id]);
+  */
 
   // Chips (categories) toggle
   const toggleChip = chip => {
@@ -121,11 +119,7 @@ export const useRentBoatScreen = companyData => {
   const handleTimeSelect = time => setSelectedTime(time);
 
   const isAllSelected = () => {
-    return (
-      // selectedServices.length > 0 &&
-      // selectedStylist &&
-      selectedDate && selectedTime && selectedBoat
-    );
+    return selectedDate && selectedTime && selectedBoat;
   };
 
   const handleBookNow = () => {
@@ -138,10 +132,6 @@ export const useRentBoatScreen = companyData => {
   };
 
   const resetState = () => {
-    // setActiveChip(null);
-    // setViewingChip(null);
-    // setSelectedServices([]);
-    // setSelectedStylist(null);
     setSelectedDate(null);
     setSelectedTime(null);
     setSelectedBoat(null);
@@ -149,21 +139,17 @@ export const useRentBoatScreen = companyData => {
 
   const closeModal = () => setIsModalVisible(false);
 
-  // Get service objects for selected names
+  // Get service objects for selected names (now returns empty if no services)
   const selectedServiceObjects = selectedServices.map(name => {
-    const s = companyServices.find(service => service.name === name);
     return {
-      ...s,
-      price: Number(s?.price) || 0,
-      duration_minutes: Number(s?.duration_minutes) || 0,
+      name,
+      price: 0, // Default price since no services from API
+      duration_minutes: 0, // Default duration since no services from API
     };
   });
 
-  // Calculate total price and duration
-  const totalPrice = selectedServiceObjects.reduce(
-    (sum, s) => sum + s.price,
-    0,
-  );
+  // Calculate total price and duration (will be 0 without API data)
+  const totalPrice = selectedServiceObjects.reduce((sum, s) => sum + s.price, 0);
   const totalDuration = selectedServiceObjects.reduce(
     (sum, s) => sum + s.duration_minutes,
     0,

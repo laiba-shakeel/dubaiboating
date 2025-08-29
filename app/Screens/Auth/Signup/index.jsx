@@ -44,6 +44,10 @@ const SignupScreen = () => {
       Alert.alert('Success', 'Account created successfully');
 
       authContextRegister(res.user);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }], // 👈 Drawer ke andar ka root
+      });
     } catch (error) {
       let errorMessage = 'Something went wrong';
 

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   fullOverlay: {
     ...StyleSheet.absoluteFillObject, // Covers the entire ImageBackground
-    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Dark overlay across the whole image
+    backgroundColor: 'rgba(0, 0, 0, 0.2)', // Dark overlay across the whole image
   },
   content: {
     padding: 10,

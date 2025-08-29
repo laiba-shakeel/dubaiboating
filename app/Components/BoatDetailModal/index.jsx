@@ -18,6 +18,20 @@ const BoatDetailModal = ({ visible, onClose, boat }) => {
 
   if (!boat) return null;
 
+  // Construct image URL using the same method as RentalBoatsScreen
+  const getImageUrl = (image) => {
+    if (image && image.image_url) {
+      return { uri: `https://api.dubaiboating.com/storage/app/public/${image.image_url}` };
+    }
+    return { uri: 'https://via.placeholder.com/300x200.png?text=No+Image' };
+  };
+
+  // Parse description into an array of lines
+  const parseDescription = (desc) => {
+    if (!desc) return ['No description available'];
+    return desc.split('|').map(line => line.trim()).filter(line => line.length > 0);
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -41,20 +55,20 @@ const BoatDetailModal = ({ visible, onClose, boat }) => {
               alignItems: 'center',
             }}
           >
-            <Text style={styles.boatTitle}>{boat.title}</Text>
-            <Text style={styles.boatPrice}>{boat.price}</Text>
+            <Text style={styles.boatTitle}>{boat.title || 'Unknown Boat'}</Text>
+            <Text style={styles.boatPrice}>{boat.price || 'AED 0.00'}</Text>
           </View>
 
           {/* Carousel */}
           <FlatList
-            data={boat.images}
+            data={boat.images || []}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <Image
-                source={item}
+                source={getImageUrl(item)}
                 style={styles.boatImage}
                 resizeMode="cover"
               />
@@ -69,23 +83,27 @@ const BoatDetailModal = ({ visible, onClose, boat }) => {
               <View style={styles.overviewRow}>
                 <View style={styles.overviewItem}>
                   <Text style={styles.overviewLabel}>LENGTH</Text>
-                  <Text style={styles.overviewValue}>{boat.length || '70-100 ft.'}</Text>
+                  <Text style={styles.overviewValue}>{boat.length || 'N/A'}</Text>
                 </View>
                 <View style={styles.overviewItem}>
                   <Text style={styles.overviewLabel}>YEAR</Text>
-                  <Text style={styles.overviewValue}>{boat.year || '2018'}</Text>
+                  <Text style={styles.overviewValue}>{boat.year || 'N/A'}</Text>
                 </View>
                 <View style={styles.overviewItem}>
                   <Text style={styles.overviewLabel}>BRAND</Text>
-                  <Text style={styles.overviewValue}>{boat.brand || 'yamaha'}</Text>
+                  <Text style={styles.overviewValue}>{boat.brand || 'N/A'}</Text>
                 </View>
                 <View style={styles.overviewItem}>
                   <Text style={styles.overviewLabel}>MODEL</Text>
-                  <Text style={styles.overviewValue}>{boat.model || '2018'}</Text>
+                  <Text style={styles.overviewValue}>{boat.model || 'N/A'}</Text>
                 </View>
                 <View style={styles.overviewItem}>
                   <Text style={styles.overviewLabel}>CONDITION</Text>
-                  <Text style={styles.overviewValue}>{boat.condition || 'Used'}</Text>
+                  <Text style={styles.overviewValue}>{boat.boat_condition || 'N/A'}</Text>
+                </View>
+                <View style={styles.overviewItem}>
+                  <Text style={styles.overviewLabel}>TYPE</Text>
+                  <Text style={styles.overviewValue}>{boat.type || 'N/A'}</Text>
                 </View>
               </View>
             </View>
@@ -103,23 +121,9 @@ const BoatDetailModal = ({ visible, onClose, boat }) => {
               </TouchableOpacity>
               {isDescriptionOpen && (
                 <View style={styles.descriptionContent}>
-                  <Text style={styles.descriptionText}>TECHNICAL SPECIFICATIONS</Text>
-                  <Text style={styles.specText}>Loa (m) {boat.loa || '21.14'}</Text>
-                  <Text style={styles.specText}>Lh(m) {boat.lh || '20.88'}</Text>
-                  <Text style={styles.specText}>Max beam (m) {boat.maxBeam || '5.00'}</Text>
-                  <Text style={styles.specText}>Engines {boat.engines || '2 x MTU V10 2000 M96'}</Text>
-                  <Text style={styles.specText}>Engine HP {boat.engineHP || '1.623'}</Text>
-                  <Text style={styles.specText}>Transmission {boat.transmission || 'Surface Drives'}</Text>
-                  <Text style={styles.specText}>Top System {boat.topSystem || '85P - Surface Drives'}</Text>
-                  <Text style={styles.specText}>Max speed (kn) {boat.maxSpeed || '16'}</Text>
-                  <Text style={styles.specText}>Cruise speed (kn) {boat.cruiseSpeed || '40'}</Text>
-                  <Text style={styles.specText}>Range nm at cruising speed {boat.range || '300'}</Text>
-                  <Text style={styles.specText}>Material {boat.material || 'GRP'}</Text>
-                  <Text style={styles.specText}>Laden displacement kg {boat.ladenDisplacement || '45.17'}</Text>
-                  <Text style={styles.specText}>Unladen displacement kg {boat.unladenDisplacement || '39.45'}</Text>
-                  <Text style={styles.specText}>Fuel (l) {boat.fuel || '1,500'}</Text>
-                  <Text style={styles.specText}>Water (l) {boat.water || '900'}</Text>
-                  <Text style={styles.specText}>Gyro stabilizers {boat.gyroStabilizers || 'Seakeeper NG9'}</Text>
+                  {parseDescription(boat.description).map((line, index) => (
+                    <Text key={index} style={styles.specText}>{line}</Text>
+                  ))}
                 </View>
               )}
             </View>
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     width: '90%',
-    maxHeight: '90%', // Ensure modal doesn't exceed screen height
+    maxHeight: '90%',
   },
   closeButton: {
     position: 'absolute',
